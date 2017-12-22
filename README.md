@@ -8,7 +8,7 @@ NodeJS API with MongoDB
 <p>This api is builted with nodejs and mongodb with (artist, music & album models)  Enjoy!!! </p>
 
 <h4>Requirements</h4>
->  Install NodeJS
+>  Install NodeJS <br>
 >  Install MongoDB
 
 Then run node app.js in the command prompt
