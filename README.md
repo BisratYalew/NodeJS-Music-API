@@ -1,17 +1,11 @@
-<h2> This is a Song API builted with Node.js and MongoDB </h2>
+<h2> Node Song API </h2>
 
 # API / Back-End
 
-<br/>
-<p align="center">
-  <a href="http://github.com/bisratyalew">
-      <img src ="https://lh3.googleusercontent.com/-wnEvjqtMM64/V5IRJddJ-ZI/AAAAAAAAABg/IrIEDaYQaFkFqS9rOLv-qL3slRGCyfwygCEwYBhgL/w140-h140-p/13607001_111123475987884_1354606817277497713_n.jpg" alt="Bisrat Yalew"/>
-  </a>
-</p>
-<br/>
+NodeJS API with MongoDB
+=======================
 
-Song API with NodeJs and MongoDB
-================================
+<p>This api is builted with nodejs and mongodb with (artist, music & album models)  Enjoy!!! </p>
 
 
 Author
