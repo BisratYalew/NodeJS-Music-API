@@ -1,22 +1,22 @@
--{
--  "name": "NodeJS-Song-API",
--  "version": "1.0.0",
--  "description": "MUSIC API for DEV",
--  "main": "app.js",
--  "scripts": {
--    "test": "echo \"Error: no test specified\" && exit 1",
--    "start": "node app.js"
--  },
--  "author": "Bisrat Yalew",
--  "license": "MIT",
--  "dependencies": {
--    "body-parser": "^1.18.2",
--    "express": "^4.16.2",
--    "express-validator": "^4.3.0",
--    "lodash": "^4.17.4",
--    "mongoose": "^4.13.0"
--  },
--  "engines": {
--    "node": "4.2.6"
--  }
--
+{
+  "name": "NodeJS-Song-API",
+  "version": "1.0.0",
+  "description": "MUSIC API for DEV",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Bisrat Yalew",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-validator": "^4.3.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.13.0"
+  },
+  "engines": {
+    "node": "4.2.6"
+}
+
