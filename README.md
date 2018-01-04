@@ -18,8 +18,6 @@ Author
 
 Created by [Bisrat Yalew](https://linkedin.com/in/bisratyalew) - [@bisratyalew](mailto:bisratyalew10@gmail.com)
 
-Follow me on github to check out my programs
-
 Contact me via bisratyalew10@gmail.com or @bisratyalew on Telegram.  
 Thanks in advance.
 
