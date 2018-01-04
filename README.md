@@ -18,7 +18,7 @@ Author
 
 Created by [Bisrat Yalew](https://linkedin.com/in/bisratyalew) - [@bisratyalew](mailto:bisratyalew10@gmail.com)
 
-Contact me via bisratyalew10@gmail.com or @bisratyalew on Telegram.  
+Contact me via bisratyalew10@gmail.com  
 Thanks in advance.
 
 Bisrat Yalew, 2017  
