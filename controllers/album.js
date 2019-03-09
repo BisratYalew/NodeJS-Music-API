@@ -1,12 +1,12 @@
-var lodash		= require('lodash');
 var waterfall   = require('async').waterfall;
 
 var ArtistDal   = require('../dal/artist');
 var MusicDal    = require('../dal/music');
 var AlbumDal    = require('../dal/album');
 
+
 // POST Albums --- /albums
-exports.createAlbum = function createAlbum(req, res, next){
+exports.createAlbum = (req, res, next) => {
 
 	var body           = req.body;
 
@@ -15,104 +15,93 @@ exports.createAlbum = function createAlbum(req, res, next){
 
 	waterfall([function(callback) {
 
+		AlbumDal.create(body,  (err, album) => {
+				if(err){
+					res.status(500);
+					res.json({
+						status: 500,
+						type: 'CREATE_AlBUM_ERROR',
+						message: err.message
+					});
+					return;
+				}
 
-	AlbumDal.create(body, function createAlbumCB(err, album){
-        	if(err){
+				callback(null, album);
+
+			});
+
+	},  (album, callback) => {
+
+
+		/* After the music is created it will automatically 
+		* find the Artist and update the Artist's Music        
+		*/
+		ArtistDal.get({_id : album.artist},  (err, artist) => {
+			if(err){
 				res.status(500);
 				res.json({
 					status: 500,
-					type: 'CREATE_AlBUM_ERROR',
+					type: 'GET_ARTIST_ERROR',
 					message: err.message
 				});
-				return;
-	        }
+				return;  
+			}
 
-	        callback(null, album);
-
-           });
-
-	},  function(album, callback) {
+			var albums = artist.albums;
+			albums.push(album._id);
+			var albumUpdate = { 'albums' :  albums};
 
 
-	/* After the music is created it will automatically 
-     * find the Artist and update the Artist's Music        
-     */
-    ArtistDal.get({_id : album.artist}, function getAtrist(err, artist) {
-        if(err){
-             res.status(500);
-             res.json({
-                 status: 500,
-                 type: 'GET_ARTIST_ERROR',
-                 message: err.message
-             });
-             return;  
-        }
-
-        var albums = artist.albums;
-        albums.push(album._id);
-        var albumUpdate = { 'albums' :  albums};
+			// Update the Artist's Music
+			ArtistDal.update({_id : artist._id}, albumUpdate,  (err, artist) => {
+				if(err){
+					res.status(500);
+					res.json({
+						status: 500,
+						type: 'UPDATE_ARTIST_ERROR',
+						message: err.message
+					});
+					return;  
+				}
+				
+			});
+		}); 
 
 
-        // Update the Artist's Music
-        ArtistDal.update({_id : artist._id}, albumUpdate, function updateArtist(err, artist){
-            if(err){
-                res.status(500);
-                res.json({
-                    status: 500,
-                    type: 'UPDATE_ARTIST_ERROR',
-                    message: err.message
-                });
-                return;  
-            }
-             /* res.status(201); 
-             * res.json(album)    
-             * Not needed because it will raise an error --- 
-             * error-cant-set-headers-after-they-are-sent-to-the-client 
-             * use only once on the MusicDal */ 
-        });
-    }); 
+		MusicDal.get({_id : album.musics},  (err, music) => {
+			if(err){
+				res.status(500);
+				res.json({
+					status: 500,
+					type: 'GET_MUSIC_ERROR',
+					message: err.message
+				});
+				return;  
+			}
+
+			var albumM = music.album;
+			albumM.push(album._id);
+			var albumMUpdate = { 'album' :  albumM };
 
 
-    MusicDal.get({_id : album.musics}, function getAtrist(err, music){
-        if(err){
-             res.status(500);
-             res.json({
-                 status: 500,
-                 type: 'GET_MUSIC_ERROR',
-                 message: err.message
-             });
-             return;  
-        }
+			// Update the Artist's Music
+			MusicDal.update({_id : music._id}, albumMUpdate,  (err, music) => {
+				if(err){
+					res.status(500);
+					res.json({
+						status: 500,
+						type: 'UPDATE_ARTIST_ERROR',
+						message: err.message
+					});
+					return;  
+				}
+				res.status(201); 
+				res.json(album);    
+				
+			});
+		}); 
 
-        var albumM = music.album;
-        albumM.push(album._id);
-        var albumMUpdate = { 'album' :  albumM };
-
-
-        // Update the Artist's Music
-        MusicDal.update({_id : music._id}, albumMUpdate, function updateArtist(err, music){
-            if(err){
-                res.status(500);
-                res.json({
-                    status: 500,
-                    type: 'UPDATE_ARTIST_ERROR',
-                    message: err.message
-                });
-                return;  
-            }
-              res.status(201); 
-              res.json(album);    
-             // * Not needed because it will raise an error --- 
-             // * error-cant-set-headers-after-they-are-sent-to-the-client 
-             // * use only once on the MusicDal  
-        });
-    }); 
-
-
-
-
-
-	}], function(err, album) {
+	}], (err, album) => {
 		if(err) {
 			return console.log(err);
 		} else {
@@ -125,9 +114,9 @@ exports.createAlbum = function createAlbum(req, res, next){
 
        
 // GET Albums --- /albums
-exports.getAlbums = function getAlbums(req, res, next){
+exports.getAlbums = (req, res, next) => {
 	
-	AlbumDal.getCollection({}, function cbGet(err, albums){
+	AlbumDal.getCollection({},  (err, albums) => {
 
 		if(err){
 			res.status(500);
@@ -149,10 +138,10 @@ exports.getAlbums = function getAlbums(req, res, next){
 
 
 // GET a Specific Album --- albums/:albumId
-exports.getAlbum = function getAlbum(req, res, next){
+exports.getAlbum =  (req, res, next) => {
 	var albumId = req.params.albumId;
 	
-	AlbumDal.get({_id: albumId}, function cbGet(err, album) {
+	AlbumDal.get({_id: albumId},  (err, album) => {
 		if(err){
 			res.status(500);
 			res.json({
@@ -170,12 +159,12 @@ exports.getAlbum = function getAlbum(req, res, next){
 };
 
 // PUT or Update a specific Album --- albums/:albumId
-exports.updateAlbum = function updateAlbum(req, res, next){
+exports.updateAlbum =  (req, res, next) => {
 	
 	var albumId = req.params.albumId;
 	var body = req.body;
 
-	AlbumDal.update({_id : albumId}, body, function cbUpdate(err, album){
+	AlbumDal.update({_id : albumId}, body,  (err, album) => {
 
 		if(err){
 			res.status(304);
@@ -192,26 +181,23 @@ exports.updateAlbum = function updateAlbum(req, res, next){
 };
 
 // DELETE or remove a specific album --- albums/:albumId
-exports.removeAlbum = function removeAlbum(req, res, next){
+exports.removeAlbum =  (req, res, next) => {
 	var albumId = req.params.albumId;
 	
-	AlbumDal.remove({_id : albumId}, function cbRemove(err, album){
+	AlbumDal.remove({_id : albumId},  (err, album) => {
 		
-				if(err){
-					res.status(304);
-					res.json({
-						status: 304,
-						type: 'REMOVE_ALBUM_ERROR',
-						message: err.message
-					});
-					return;
-				}
+		if(err){
+			res.status(304);
+			res.json({
+				status: 304,
+				type: 'REMOVE_ALBUM_ERROR',
+				message: err.message
+			});
+			return;
+		}
 
-				res.status(404);
-				res.json(album || { message: "Can not remove this Album"});
+		res.status(404);
+		res.json(album || { message: "Can not remove this Album"});
 
-    	});
+	});
 };
-
-
-
