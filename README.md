@@ -10,4 +10,21 @@
 - [ ] User Management
 - [ ] Security
 
+<br><br>
 
+## Usage
+#### First clone the repo
+
+``` 
+git clone https://github.com/BisratYalew/NodeJs-Music-API
+```
+
+#### Then
+``` 
+npm install
+```
+
+#### Then
+```
+npm start
+```
