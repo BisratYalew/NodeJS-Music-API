@@ -28,3 +28,19 @@ npm install
 ```
 npm start
 ```
+
+
+<br><br><br>
+
+
+## Contributing
+
+Feel free to contribute and send pull requests. Not completed will update faster!
+
+## Author
+
+* [BisratYalew](https://bisratyalew.github.io)
+
+## Licence
+
+#### MIT
