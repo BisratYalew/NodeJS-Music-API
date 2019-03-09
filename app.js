@@ -1,6 +1,5 @@
 var express 		= require('express');
 var bodyParser 		= require('body-parser');
-var lodash      	= require('lodash'); 
 var mongoose		= require('mongoose');
 var validator 		= require('express-validator'); // Express Validator
 
@@ -11,7 +10,6 @@ var router          = require('./routes');
 
 var app 			= express();
 
-var getRoot 		= router.getRoot;
 
 // Start Server
 app.listen(config.HTTP_PORT, function connectionListener(){
