@@ -1,12 +1,12 @@
 var Artist = require('../models/artist');
 
 // Create Artist
-exports.create = function createArtist(data, cb){
+exports.create = (data, cb) => {
     Artist.create(data, cb);
 };
 
 // Get Artist
-exports.get = function getArtist(query, cb){
+exports.get = (query, cb) => {
 
     // populate musics and albums in getArtist Detail View
     Artist.findOne(query,cb)
@@ -25,16 +25,16 @@ exports.get = function getArtist(query, cb){
 };
 
 // Update Artist
-exports.update = function updateArtist(id, data, cb){
+exports.update = (id, data, cb) => {
     Artist.findByIdAndUpdate(id, data, cb);
 };
 
 // Delete Artist
-exports.remove = function removeArtist(id, cb){
+exports.remove = (id, cb) => {
     Artist.findByIdAndRemove(id, cb);
 };
 
 // Get a collection of Artists
-exports.getCollection = function getArtistCollection(query, cb){
+exports.getCollection = (query, cb) => {
     Artist.find(query, cb);
 };

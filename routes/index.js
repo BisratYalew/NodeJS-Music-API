@@ -4,7 +4,7 @@ var artistRouter   = require('./artist');
 var musicRouter    = require('./music');
 var albumRouter    = require('./album');
 
-module.exports = function appRouter(app) {
+module.exports =  (app) => {
 
 	// Authors Routes
 	app.use('/artists', artistRouter);

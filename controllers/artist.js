@@ -1,16 +1,12 @@
 // Load Module Dependencies
 
-var lodash		= require('lodash');
-
 var ArtistDal 	= require('../dal/artist');
-var MusicDal    = require('../dal/music');
-var AlbumDal   = require('../dal/album');
  
 // POST Artist --- artists/
-exports.createArtist = function createArtist(req, res, next){
+exports.createArtist =  (req, res, next) => {
 	var body = req.body;
 
-	ArtistDal.create(body, function createCB(err, artist){
+	ArtistDal.create(body,  (err, artist) => {
 		if(err){
 			res.status(500);
 			res.json({
@@ -26,9 +22,9 @@ exports.createArtist = function createArtist(req, res, next){
 };
 
 // GET Artists --- artists/
-exports.getArtists = function getArtists(req, res, next){
+exports.getArtists =  (req, res, next) => {
 	
-	ArtistDal.getCollection({}, function getCB(err, artists){
+	ArtistDal.getCollection({}, (err, artists) => {
 
 		if(err){
 			res.status(500);
@@ -47,10 +43,10 @@ exports.getArtists = function getArtists(req, res, next){
 };
 
 // GET A Specific Artist --- artists/:artistId
-exports.getArtist = function getArtist(req, res, next){
+exports.getArtist = (req, res, next) => {
 	var artistId = req.params.artistId;
 
-	ArtistDal.get({_id: artistId}, function getCB(err, artist){
+	ArtistDal.get({_id: artistId}, (err, artist) => {
 		if(err){
 			res.status(500);
 			res.json({
@@ -68,12 +64,12 @@ exports.getArtist = function getArtist(req, res, next){
 };
 
 // PUT or Update a specific Artist --- artists/:artistId
-exports.updateArtist = function updateArtist(req, res, next){
+exports.updateArtist =  (req, res, next) => {
 	
 	var artistId = req.params.artistId;
 	var body = req.body;
 
-	ArtistDal.update({_id : artistId}, body, function updateCB(err, artist){
+	ArtistDal.update({_id : artistId}, body,  (err, artist) => {
 
 		if(err){
 			res.status(500);
@@ -91,23 +87,23 @@ exports.updateArtist = function updateArtist(req, res, next){
 };
 
 // DELETE or Remove a specific artist ... artists/:artistId
-exports.removeArtist = function removeArtist(req, res, next){
+exports.removeArtist =  (req, res, next) => {
 	var artistId = req.params.artistId;
 	
-	ArtistDal.remove({_id : artistId}, function removeCB(err, artist){
+	ArtistDal.remove({_id : artistId}, (err, artist) => {
 		
-				if(err){
-					res.status(500);
-					res.json({
-						status: 500,
-						type: 'REMOVE_ARTIST_ERROR',
-						message: err.message
-					});
-					return;
-				}
-
-				res.status(404);
-				res.json(artist || { message: "Can not Delete Artist"} );
+		if(err){
+			res.status(500);
+			res.json({
+				status: 500,
+				type: 'REMOVE_ARTIST_ERROR',
+				message: err.message
 			});
-	
+			return;
+		}
+
+		res.status(404);
+		res.json(artist || { message: "Can not Delete Artist"} );
+	});
+
 };
