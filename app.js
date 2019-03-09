@@ -1,14 +1,14 @@
-var express 		= require('express');
-var bodyParser 		= require('body-parser');
-var mongoose		= require('mongoose');
-var validator 		= require('express-validator'); // Express Validator
+var express		= require('express');
+var bodyParser	= require('body-parser');
+var mongoose 	= require('mongoose');
+var validator 	= require('express-validator'); // Express Validator
 
-var config 			= require('./config');
-var logger			= require('./lib/logger');
-var router          = require('./routes');
+var config 		= require('./config');
+var logger 		= require('./lib/logger');
+var router 		= require('./routes');
 
 
-var app 			= express();
+var app = express();
 
 
 // Start Server
